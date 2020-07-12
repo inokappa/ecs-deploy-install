@@ -32,4 +32,4 @@ workflows:
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
-            - orb-tools/test-in-builds
+            - test-specify-version
