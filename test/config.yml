@@ -5,7 +5,7 @@ orbs:
   aws-cli: circleci/aws-cli@1.2.1
 
 jobs:
-  integration:
+  build:
     docker:
       - image: cimg/base:2020.01
     steps:
@@ -16,8 +16,3 @@ jobs:
           name: Get ecs-deploy version
           command: |
             ecs-deploy --version
-
-workflows:
-  integration_test:
-     jobs:
-       - integration
