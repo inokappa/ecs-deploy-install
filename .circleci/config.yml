@@ -5,7 +5,7 @@ orbs:
   orb-tools: circleci/orb-tools@9.1.1
 
 workflows:
-  lint_pack_publish-dev_intergation-test:
+  lint_pack_test_publish-dev:
     jobs:
       - orb-tools/lint
       - orb-tools/pack:
@@ -13,14 +13,13 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/test-in-builds:
-          name: dev-test
           attach-workspace: true
           orb-name: ecs-deploy
           test-steps:
             - orb-tools/local-test-build:
                 test-config-location: test/config.yml
           requires:
-            - package-dev
+            - orb-tools/pack
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
