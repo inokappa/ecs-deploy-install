@@ -28,7 +28,7 @@ workflows:
             - orb-tools/local-test-build:
                 test-config-location: test/version.yml
           requires:
-            - test-lateset-version
+            - test-latest-version
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
