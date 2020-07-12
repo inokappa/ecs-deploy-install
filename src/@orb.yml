@@ -1,0 +1,6 @@
+---
+version: 2.1
+
+description: |
+  Installing ecs-deploy. Source:
+  https://github.com/inokappa/ecs-deploy-install

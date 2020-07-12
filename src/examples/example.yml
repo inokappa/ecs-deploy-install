@@ -1,0 +1,24 @@
+---
+description: |
+  Installing ecs-deploy. Source:
+  https://github.com/inokappa/ecs-deploy-install
+
+usage:
+
+  version: 2.1
+
+  orbs:
+    ecs-deploy: inokappa/ecs-deploy@x.y
+    jobs:
+      ecs-deploy_example:
+      steps:
+        - checkout
+        - ecs-deploy/install
+        - run:
+            command: |
+              ecs-deploy --cluster your-ecs-cluster \
+                --image your-container-image \
+                --service-name your-ecs-service-name \
+                --region ap-northeast-1 \
+                --timeout 300 \
+                --enable-rollback

@@ -1,0 +1,55 @@
+---
+description: |
+  Installing ecs-deploy.
+
+parameters:
+  version:
+    description: ecs-deploy version.
+    type: string
+    default: ""
+  latest:
+    description: install latest version.
+    type: boolean
+    default: true
+
+steps:
+  - run:
+      name: "Check dependent command exists."
+      command: |
+        set +e
+        for cmd in curl jq sudo
+        do
+          which ${cmd} > /dev/null 2>&1
+          if [ ! $? -eq 0 ];then
+            wocho "Please Install ${cmd} command."
+            exit 1
+          fi
+        done
+
+  - run:
+      name: "Install ecs-deploy"
+      command: |
+        set +e
+        if << parameters.latest >>; then
+          VERSION=$(curl -s 'https://api.github.com/repos/silinternational/ecs-deploy/tags' | jq -r '.[].name' | head -1 || true)
+        else
+          VERSION=<< parameters.version >>
+        fi
+
+        if [ -z "${VERSION}" ];then
+          echo "Please specify 'version'."
+          exit 1
+        fi
+
+        curl -s https://raw.githubusercontent.com/silinternational/ecs-deploy/${VERSION}/ecs-deploy | sudo tee -a /usr/local/bin/ecs-deploy \
+          && sudo chmod +x /usr/local/bin/ecs-deploy
+
+  - run:
+      name: "Verify installed."
+      command: |
+        set +e
+        which ecs-deploy > /dev/null 2>&1
+        if [ ! $? -eq 0 ];then
+          echo "ecs-deploy is not installed."
+          exit 1
+        fi

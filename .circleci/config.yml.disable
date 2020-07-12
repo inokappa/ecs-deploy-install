@@ -1,0 +1,24 @@
+---
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.2.1
+  ecs-deploy: inokappa/ecs-deploy-install@dev:0.0.3
+
+jobs:
+  integration:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - aws-cli/install
+      - ecs-deploy/install:
+          latest: true
+      - run:
+          name: Get ecs-deploy version
+          command: |
+            ecs-deploy --version
+
+workflows:
+  integration_test:
+     jobs:
+       - integration
