@@ -10,7 +10,7 @@ jobs:
       - image: cimg/base:2020.01
     steps:
       - ecs-deploy/install:
-          version: true
+          latest: true
 
 workflows:
    main:
