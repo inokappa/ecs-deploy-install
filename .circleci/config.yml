@@ -9,7 +9,6 @@ workflows:
     jobs:
       - orb-tools/lint
       - orb-tools/pack:
-          name: package-dev
           requires:
             - orb-tools/lint
       - orb-tools/test-in-builds:
