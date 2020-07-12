@@ -22,7 +22,7 @@ commands:
           name: "Check dependent command exists."
           command: |
             set +e
-            for cmd in curl jq
+            for cmd in curl jq sudo
             do
               which ${cmd} > /dev/null 2>&1
               if [ ! $? -eq 0 ];then
@@ -46,7 +46,7 @@ commands:
               exit 1
             fi
 
-            curl -s https://raw.githubusercontent.com/silinternational/ecs-deploy/${VERSION}/ecs-deploy | tee -a /usr/local/bin/ecs-deploy \
+            curl -s https://raw.githubusercontent.com/silinternational/ecs-deploy/${VERSION}/ecs-deploy | sudo tee -a /usr/local/bin/ecs-deploy \
               && chmod +x /usr/local/bin/ecs-deploy
 
       - run:
