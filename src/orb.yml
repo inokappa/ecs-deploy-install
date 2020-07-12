@@ -12,6 +12,7 @@ commands:
       version:
         description: ecs-deploy version.
         type: string
+        default: ""
       latest:
         description: install latest version.
         type: boolean
