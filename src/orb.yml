@@ -47,13 +47,13 @@ commands:
             fi
 
             curl -s https://raw.githubusercontent.com/silinternational/ecs-deploy/${VERSION}/ecs-deploy | sudo tee -a /usr/local/bin/ecs-deploy \
-              && chmod +x /usr/local/bin/ecs-deploy
+              && sudo chmod +x /usr/local/bin/ecs-deploy
 
       - run:
           name: "Verify installed."
           command: |
             set +e
-            which  > /dev/null 2>&1
+            which ecs-deploy > /dev/null 2>&1
             if [ ! $? -eq 0 ];then
               echo "ecs-deploy is not installed."
               exit 1
