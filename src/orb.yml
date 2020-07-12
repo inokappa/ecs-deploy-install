@@ -34,7 +34,7 @@ commands:
           name: "Install ecs-deploy"
           command: |
             set +e
-            if "<< parameters.latest >>"; then
+            if << parameters.latest >>; then
               VERSION=$(curl -s 'https://api.github.com/repos/silinternational/ecs-deploy/tags' | jq -r '.[].name' | head -1 || true)
             else
               VERSION=<< parameters.version >>
