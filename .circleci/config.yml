@@ -9,12 +9,19 @@ workflows:
     jobs:
       - orb-tools/lint
       - orb-tools/pack:
+          name: package-dev
           requires:
             - orb-tools/lint
+      - orb-tools/test-in-builds:
+          name: dev-test
+          attach-workspace: true
+          orb-name: ecs-deploy
+          test-steps:
+            - orb-tools/local-test-build:
+                test-config-location: test/config.yml
+          requires:
+            - package-dev
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
             - orb-tools/pack
-      - orb-tools/trigger-integration-tests-workflow:
-          requires:
-            - orb-tools/publish-dev

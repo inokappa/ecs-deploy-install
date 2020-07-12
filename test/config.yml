@@ -3,7 +3,6 @@ version: 2.1
 
 orbs:
   aws-cli: circleci/aws-cli@1.2.1
-  ecs-deploy: inokappa/ecs-deploy-install@dev:alpha
 
 jobs:
   integration:
