@@ -2,14 +2,15 @@
 version: 2.1
 
 orbs:
-  ecs-deploy-install: inokappa/ecs-deploy-install@dev:0.0.1
+  ecs-deploy: inokappa/ecs-deploy-install@dev:0.0.1
 
 jobs:
   integration:
     docker:
       - image: cimg/base:2020.01
     steps:
-      - ecs-deploy-install/install
+      - ecs-deploy/install:
+          version: true
 
 workflows:
    main:
