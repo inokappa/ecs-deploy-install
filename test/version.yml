@@ -11,14 +11,12 @@ jobs:
     steps:
       - aws-cli/install
       - ecs-deploy/install:
-          version: 3.6.0
+          version: 3.4.0
       - run:
           name: Get ecs-deploy version
           command: |
             VERSION=$(ecs-deploy --version)
             echo ${VERSION}
-            if [ "${VERSION}" = "3.6.0" ];then
-                exit 0
-            else
+            if [ "${VERSION}" != "3.4.0" ];then
                 exit 1
             fi
