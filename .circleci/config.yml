@@ -23,4 +23,4 @@ workflows:
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
-            - orb-tools/pack
+            - orb-tools/local-test-build
