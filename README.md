@@ -4,6 +4,8 @@
 
 orbs to install ecs-deploy.
 
+* https://circleci.com/orbs/registry/orb/inokappa/ecs-deploy-install
+
 ## Example
 
 ```yaml
