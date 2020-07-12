@@ -1,0 +1,9 @@
+version: 2.1
+
+orbs:
+  ecs-deploy: inokappa/ecs-deploy-install@dev:0.0.1
+
+workflows:
+  test-workflow:
+    jobs:
+      - ecs-deploy/install

@@ -1,0 +1,79 @@
+version: 2.1
+
+description: |
+  Installing ecs-deploy. Source:
+  https://github.com/inokappa/ecs-deploy-install
+
+commands:
+  install:
+    description: "install ecs-deploy"
+    parameters:
+      version:
+        description: ecs-deploy version.
+        type: string
+      latest:
+        description: install latest version.
+        type: boolean
+        default: true
+    steps:
+      - run:
+          name: "Check dependent command exists."
+          command: |
+            set +e
+            for cmd in curl jq
+            do
+              which ${cmd} > /dev/null 2>&1
+              if [ ! $? -eq 0 ];then
+                wocho "Please Install ${cmd} command."
+                exit 1
+              fi
+            done
+
+      - run:
+          name: "Install ecs-deploy"
+          command: |
+            set +e
+            if "<< parameters.latest >>"; then
+              VERSION=$(curl -s 'https://api.github.com/repos/silinternational/ecs-deploy/tags' | jq -r '.[].name' | head -1 || true)
+            else
+              VERSION=<< parameters.version >>
+            fi
+
+            if [ -z "${VERSION}" ];then
+              echo "Please specify 'version'."
+              exit 1
+            fi
+
+            curl -s https://raw.githubusercontent.com/silinternational/ecs-deploy/${VERSION}/ecs-deploy | tee -a /usr/local/bin/ecs-deploy \
+              && chmod +x /usr/local/bin/ecs-deploy
+
+      - run:
+          name: "Verify installed."
+          command: |
+            set +e
+            which  > /dev/null 2>&1
+            if [ ! $? -eq 0 ];then
+              echo "ecs-deploy is not installed."
+              exit 1
+            fi
+
+examples:
+  install_ecs-deploy:
+    description: Installing ecs-deploy.
+    usage:
+      version: 2.1
+      orbs:
+        ecs-deploy: inokappa/ecs-deploy@x.y
+        jobs:
+          ecs-deploy_example:
+          steps:
+            - checkout
+            - ecs-deploy/install
+            - run:
+                command: |
+                  ecs-deploy --cluster your-ecs-cluster \
+                    --image your-container-image \
+                    --service-name your-ecs-service-name \
+                    --region ap-northeast-1 \
+                    --timeout 300 \
+                    --enable-rollback
