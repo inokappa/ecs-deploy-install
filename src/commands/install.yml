@@ -30,10 +30,9 @@ steps:
       name: "Install ecs-deploy"
       command: |
         set +e
-        if [ <<parameters.version>> == "" ]; then
+        VERSION=<<parameters.version>>
+        if [ "${VERSION}" == "" ]; then
           VERSION=$(curl -s 'https://api.github.com/repos/silinternational/ecs-deploy/tags' | jq -r '.[].name' | head -1 || true)
-        else
-          VERSION=<< parameters.version >>
         fi
 
         if [ -z "${VERSION}" ];then
