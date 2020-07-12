@@ -13,6 +13,6 @@ jobs:
           latest: true
 
 workflows:
-   main:
+  integration_test:
      jobs:
        - integration
