@@ -1,0 +1,21 @@
+---
+version: 2.1
+
+orbs:
+  aws-cli: circleci/aws-cli@1.2.1
+
+jobs:
+  build:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - aws-cli/install
+      - ecs-deploy/install:
+          varsion: 3.6.0
+      - run:
+          name: Get ecs-deploy version
+          command: |
+            VERSION=$(ecs-deploy --version)
+            if [ "${VERSION}" != "3.6.0" ];then
+                exit 1
+            fi

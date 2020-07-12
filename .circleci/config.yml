@@ -12,13 +12,23 @@ workflows:
           requires:
             - orb-tools/lint
       - orb-tools/test-in-builds:
+          name: test-latest-version
           attach-workspace: true
           orb-name: ecs-deploy
           test-steps:
             - orb-tools/local-test-build:
-                test-config-location: test/config.yml
+                test-config-location: test/latest.yml
           requires:
             - orb-tools/pack
+      - orb-tools/test-in-builds:
+          name: test-latest-version
+          attach-workspace: true
+          orb-name: ecs-deploy
+          test-steps:
+            - orb-tools/local-test-build:
+                test-config-location: test/version.yml
+          requires:
+            - test-lateset-version
       - orb-tools/publish-dev:
           orb-name: inokappa/ecs-deploy-install
           requires:
