@@ -1,0 +1,13 @@
+version: "2.1"
+
+executors:
+  default:
+    docker:
+      - image: cimg/base:2020.01
+
+jobs:
+  build:
+    executor: default
+    steps:
+      - checkout
+      - ecs-deploy/install
