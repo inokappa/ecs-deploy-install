@@ -8,7 +8,7 @@ usage:
   version: 2.1
 
   orbs:
-    ecs-deploy: inokappa/ecs-deploy@x.y
+    ecs-deploy: inokappa/ecs-deploy-install@x.y
     jobs:
       ecs-deploy_example:
       steps:
