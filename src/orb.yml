@@ -5,6 +5,9 @@ description: |
   Installing ecs-deploy. Source:
   https://github.com/inokappa/ecs-deploy-install
 
+orbs:
+  aws-cli: circleci/aws-cli@1.2.1
+
 commands:
   install:
     description: "install ecs-deploy"
