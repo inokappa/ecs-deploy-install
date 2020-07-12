@@ -1,9 +1,17 @@
+---
 version: 2.1
 
 orbs:
-  orb-tools: circleci/orb-tools@8.3.0
+  ecs-deploy: inokappa/ecs-deploy-install@dev:0.0.1
+
+jobs:
+  integration:
+    docker:
+      - image: cimg/base:2020.01
+    steps:
+      - ecs-deploy/install
 
 workflows:
-  test-workflow:
-    jobs:
-      - orb-tools/lint
+   main:
+     jobs:
+       - integration
