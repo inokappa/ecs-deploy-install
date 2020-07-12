@@ -21,7 +21,7 @@ workflows:
           requires:
             - orb-tools/pack
       - orb-tools/test-in-builds:
-          name: test-latest-version
+          name: test-specify-version
           attach-workspace: true
           orb-name: ecs-deploy
           test-steps:
